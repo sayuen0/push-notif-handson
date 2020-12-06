@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>push js sample</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.7/push.min.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      // main();
+      const btn = document.getElementById("push-notif-button")
+      btn.addEventListener("click", function (event) {
+        event.preventDefault();
+        main();
+      })
+    })
+
+    function main() {
+      const pushObj = {
+        body: "本文だよここに表示されるよ",
+        icon: "https://dummyimage.com/600x400/000/fff",
+        timeout: 10000,
+        onClick: function () {
+          const url = "https://nicovideo.jp";
+          window.open(url);
+        },
+      }
+      Push.create("Push通知やで", pushObj)
+    }
+
+    Push.Permission.request(onGranted, onDenied)
+    //Tracking functions
+    function onGranted() {
+      console.log("受け入れられたとき");
+    }
+
+    function onDenied() {
+      console.log("みそしる");
+    }
+  </script>
+</head>
+
+<body>
+  <h1>hello world</h1>
+  <button id="push-notif-button">押すとpush通知が走るやで</button>
+</body>
+
+</html>
